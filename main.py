@@ -12,6 +12,6 @@ def print_hi(name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     print_hi('PyCharm')
-    a = 10
+    ###a = 10
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
