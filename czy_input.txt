@@ -1,6 +1,6 @@
-import numpy as np
+import sys
 
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-from torch.autograd import Variable
+with open('czy_input.txt', 'r') as f:
+    n = f.readline().strip()
+
+    alist = list(map(int, f.readline().strip().split(' ')))
