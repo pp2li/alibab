@@ -1,0 +1,46 @@
+#include <cmath>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
+#include <queue>
+#include <cstdlib>
+#include <set>
+#include <stack>
+#include <algorithm>
+
+#define MAX 10000001
+#define lowbit(x) ((x)&(-x))
+using namespace std;
+
+int a[MAX];
+
+int n,d;
+int main()
+{
+#ifdef LOCAL
+    freopen("in.txt","r",stdin);
+#endif // LOCAl
+    cin>>n>>d;
+    int minv = 1e9,maxv = 0;
+    for(int i = 1;i <= n * n;i++)
+    {
+        cin>>a[i];
+        minv = min(a[i],minv);
+        maxv = max(a[i],maxv);
+    }
+    int sum = 0,flag = 0;
+    for(int i = 1;i <= n * n;i++)
+    {
+        if((maxv - a[i]) % d != 0)
+        {
+            flag = 1;
+            break;
+        }
+        sum += (maxv - a[i]) / d;
+    }
+    if(flag == 1)
+        cout<<-1<<endl;
+    else
+        cout<<sum<<endl;
+    return 0;
+}
