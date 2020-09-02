@@ -1,11 +1,11 @@
-# import sys
-
-# with open('czy_input.txt', 'r') as f:
+# # import sys
+#
+# with open('czy_input2.txt', 'r') as f:
 #     K = int(f.readline().strip())
 #     N = int(f.readline().strip())
 #     W_list = list(map(int, f.readline().strip().split(' ')))
 #     V_list = list(map(int, f.readline().strip().split(' ')))
-
+#
 
 import sys
 K = int(sys.stdin.readline().strip())
