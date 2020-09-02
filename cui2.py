@@ -1,60 +1,77 @@
 import sys
 
-f = open('czy_input.txt', 'r')
-q = int(f.readline().strip())
-# q = int(sys.stdin.readline().strip())
-def step1(s, idx):
-    t1, t2 = int(s[idx]), int(s[idx+1])
-    if t1 == 0 or t2 ==9:
-        return False
-    else:
-        t1 = t1 -1
-        t2 = t2+1
-    if idx == 0:
-        return [str(t1)] + [str(t2)] + s[idx+2:]
-    else:
-        return s[0:idx] + [str(t1)] + [str(t2)] + s[idx+2:]
 
-def step2(s, idx):
-    t1, t2 = int(s[idx]), int(s[idx+1])
-    if t1 == 9 or t2 ==0:
-        return False
-    else:
-        t1 = t1 +1
-        t2 = t2-1
-    if idx == 0:
-        return [str(t1)] + [str(t2)] + s[idx+2:]
-    else:
-        return s[0:idx] + [str(t1)] + [str(t2)] + s[idx+2:]
+with open('czy_input.txt', 'r') as f:
+    N = int(f.readline().strip())
+    red_list = []
+    blue_list = []
+    child = []
+    for idx in range(N):
+        temp = list(map(int, f.readline().strip().split()))
 
+        if temp[1] == 1:
+            red_list.append((idx, temp[0]))
+        if temp[1] == 2:
+            blue_list.append((idx, temp[0]))
 
-for _ in range(q):
-    s = list(f.readline().strip())
-    # s = list(sys.stdin.readline().strip())
-    l = len(s)
-    queue = [s]
-    has_see_set = set([''.join(s)])
-    # idx = 0
-    # jdx = 0
-    while queue:
-        s = queue.pop(0)
-        for idx in range(l -1):
-            new_s = step1(s, idx)
-            if new_s and ''.join(new_s) not in has_see_set:
-                has_see_set.add(''.join(new_s))
-                queue.append(new_s)
-
-        for idx in range(l -1):
-            new_s = step2(s, idx)
-            if new_s and ''.join(new_s) not in has_see_set:
-                has_see_set.add(''.join(new_s))
-                queue.append(new_s)
-
-        # queue.pop(0)
-
-    print len(has_see_set) % 1000000007
+# import sys
+# N = int(sys.stdin.readline().strip())
+# red_list = []
+# blue_list = []
+# child = []
+# for idx in range(N):
+#     temp = list(map(int, sys.stdin.readline().strip().split()))
+#
+#     if temp[1] == 1:
+#         red_list.append((idx, temp[0]))
+#     if temp[1] == 2:
+#         blue_list.append((idx, temp[0]))
 
 
+def find_max3(alist):
+    _max = [0, 0, 0]
+    _index = [-1, -1, -1]
+    for idx in range(3):
+        for child, num in alist:
+            if _max[idx] < num and child not in set(_index):
+                _max[idx] = num
+                _index[idx] = child
+    return _index, sum(_max)
 
 
-f.close()
+def find_max(red_list, blue_list):
+    if len(red_list) <3 and len(blue_list) < 3:
+        return 'null', 'null', 'null'
+
+    redindex, red_sum = find_max3(red_list)
+
+    blueindex, blue_sum = find_max3(blue_list)
+    if red_sum > blue_sum:
+        return redindex, red_sum, 1
+    if red_sum < blue_sum:
+        return blueindex, blue_sum, 2
+
+    if red_sum == blue_sum:
+        if min(redindex) < min(blueindex):
+            return redindex, red_sum, 1
+        if min(redindex) > min(blueindex):
+            return blueindex, blue_sum, 2
+
+
+indexoutput, sum_output, cat = find_max(red_list, blue_list)
+if sum_output == 'null':
+    print 'null'
+else:
+    print ' '.join(map(str, indexoutput[::-1]))
+    print sum_output
+    print cat
+
+
+
+
+
+
+
+
+
+
