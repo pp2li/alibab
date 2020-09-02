@@ -1,31 +1,31 @@
 import sys
 
 
-with open('czy_input.txt', 'r') as f:
-    N = int(f.readline().strip())
-    red_list = []
-    blue_list = []
-    child = []
-    for idx in range(N):
-        temp = list(map(int, f.readline().strip().split()))
-
-        if temp[1] == 1:
-            red_list.append((idx, temp[0]))
-        if temp[1] == 2:
-            blue_list.append((idx, temp[0]))
-
-# import sys
-# N = int(sys.stdin.readline().strip())
-# red_list = []
-# blue_list = []
-# child = []
-# for idx in range(N):
-#     temp = list(map(int, sys.stdin.readline().strip().split()))
+# with open('czy_input.txt', 'r') as f:
+#     N = int(f.readline().strip())
+#     red_list = []
+#     blue_list = []
+#     child = []
+#     for idx in range(N):
+#         temp = list(map(int, f.readline().strip().split()))
 #
-#     if temp[1] == 1:
-#         red_list.append((idx, temp[0]))
-#     if temp[1] == 2:
-#         blue_list.append((idx, temp[0]))
+#         if temp[1] == 1:
+#             red_list.append((idx+1, temp[0]))
+#         if temp[1] == 2:
+#             blue_list.append((idx+1, temp[0]))
+
+import sys
+N = int(sys.stdin.readline().strip())
+red_list = []
+blue_list = []
+child = []
+for idx in range(N):
+    temp = list(map(int, sys.stdin.readline().strip().split()))
+
+    if temp[1] == 1:
+        red_list.append((idx+1, temp[0]))
+    if temp[1] == 2:
+        blue_list.append((idx+1, temp[0]))
 
 
 def find_max3(alist):
@@ -63,8 +63,9 @@ if sum_output == 'null':
     print 'null'
 else:
     print ' '.join(map(str, indexoutput[::-1]))
-    print sum_output
     print cat
+    print sum_output
+
 
 
 
