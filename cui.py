@@ -1,28 +1,28 @@
-import sys
+# import sys
 
 # with open('czy_input.txt', 'r') as f:
-#     N, d = list(map(int, f.readline().strip().split(' ')))
-#     matrix = [list(map(int, f.readline().strip().split(' '))) for _ in range(N)]
-
-N, d = list(map(int, sys.stdin.readline().strip().split(' ')))
-matrix = [list(map(int, sys.stdin.readline().strip().split(' '))) for _ in range(N)]
-
-def dream(matrix, N, d):
-    if N == 0:
-        return -1
-    max_matrix = matrix[0][0]
-    for idx in range(N):
-        for jdx in range(N):
-            if matrix[idx][jdx] % d != 0:
-                return -1
-            if max_matrix < matrix[idx][jdx]:
-                max_matrix = matrix[idx][jdx]
-
-    output_num = 0
-    for idx in range(N):
-        for jdx in range(N):
-            output_num += (max_matrix - matrix[idx][jdx]) / d
-    return output_num
+#     K = int(f.readline().strip())
+#     N = int(f.readline().strip())
+#     W_list = list(map(int, f.readline().strip().split(' ')))
+#     V_list = list(map(int, f.readline().strip().split(' ')))
 
 
-print dream(matrix, N, d)
+import sys
+K = int(sys.stdin.readline().strip())
+
+N = int(sys.stdin.readline().strip())
+W_list = list(map(int, sys.stdin.readline().strip().split(' ')))
+V_list = list(map(int, sys.stdin.readline().strip().split(' ')))
+
+
+def package(K, N, W_list, V_list):
+
+    dp = [0 for i in range(K + 1)]
+
+    for i in range(N):
+        for j in range(K, -1, -1):
+            if j >= W_list[i]:
+                dp[j] = max(dp[j], dp[j - W_list[i]] + V_list[i])
+    return dp[-1]
+
+print package(K, N, W_list, V_list)
